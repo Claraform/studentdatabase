@@ -13,7 +13,28 @@ using namespace std;
 namespace STSCLA001{
 	vector<StudentRecord> studentData;
 	//function definitions
-	void add_student(std::string name, std::string surname, std::string snumber, std::string crecord);
+	void addStudent(std::string n, std::string sn, std::string snumber, std::string crecord){
+		for(int i = 0; i < studentData.size(); i++){
+			//check if student already exists in database
+                        if (studentData[i].studentNumber == snumber){
+				cout << "Student " << snumber << " already exists in database... updating data.." << endl;
+				//update info
+				studentData[i].name = n;
+				studentData[i].surname = sn;
+				studentData[i].classRecord = crecord; 
+			}
+			else{
+				//add new student
+				StudentRecord newstudent;
+				newstudent.name = n;
+				newstudent.surname = sn;
+				newstudent.studentNumber = snumber;
+				newstudent.classRecord = crecord;
+				studentData.push_back(newstudent);	
+				cout << "Student " << snumber << " added to database." << endl;
+			}
+		}
+	}	
 	void readDatabase(std::string filename);
 	void saveDatabase(std::string filename);
 	void displayData(std::string snumber){
