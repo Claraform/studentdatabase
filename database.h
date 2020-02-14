@@ -13,6 +13,7 @@ namespace STSCLA001{
 	//Global vector of Student Records
 	extern std::vector<StudentRecord> studentData;
 	//function definitions
+	std::vector<std::string> split(std::string s, char delim);
 	void addStudent(std::string n, std::string sn, std::string snumber, std::string crecord);
 	void readDatabase(std::string filename);
 	void saveDatabase(std::string filename);

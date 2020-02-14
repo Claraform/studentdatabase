@@ -13,10 +13,19 @@ using namespace std;
 namespace STSCLA001{
 	vector<StudentRecord> studentData;
 	//function definitions
+	vector<string> split(string s, char delim){
+		istringstream iss(s);
+		vector<string> result;
+		string token;
+		while(getline(iss, token, delim)){
+			result.push_back(token);
+		}
+	}
+
 	void addStudent(std::string n, std::string sn, std::string snumber, std::string crecord){
 		for(int i = 0; i < studentData.size(); i++){
 			//check if student already exists in database
-                        if (studentData[i].studentNumber == snumber){
+			if (studentData[i].studentNumber == snumber){
 				cout << "Student " << snumber << " already exists in database... updating data.." << endl;
 				//update info
 				studentData[i].name = n;
@@ -35,8 +44,18 @@ namespace STSCLA001{
 			}
 		}
 	}	
-	void readDatabase(std::string filename);
-	void saveDatabase(std::string filename);
+	void readDatabase(std::string filename){
+		ifstream in(filename);
+		string st;
+		char delim =',';
+		while (getline(in, st)){
+			vector<string> data = split(st, delim);
+			addStudent(data[0], data[1], data[2], data[3]);
+		}	
+	}
+	void saveDatabase(std::string filename){
+
+	}
 	void displayData(std::string snumber){
 		for(int i = 0; i < studentData.size(); i++){
 			if (studentData[i].studentNumber == snumber){				
@@ -53,7 +72,6 @@ namespace STSCLA001{
 				string grades = studentData[i].classRecord;
 				istringstream iss(grades);
 				string temp;
-				string delim = " ";
 				vector<string> grades_split;
 				while (!iss.eof()){
 					iss >> temp;
