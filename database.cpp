@@ -31,19 +31,19 @@ namespace STSCLA001{
 				studentData[i].name = n;
 				studentData[i].surname = sn;
 				studentData[i].classRecord = crecord; 
-			}
-			else{
-				//add new student
-				StudentRecord newstudent;
-				newstudent.name = n;
-				newstudent.surname = sn;
-				newstudent.studentNumber = snumber;
-				newstudent.classRecord = crecord;
-				studentData.push_back(newstudent);	
-				cout << "Student " << snumber << " added to database." << endl;
+				return;
 			}
 		}
-	}	
+		//add new student
+		StudentRecord newstudent;
+		newstudent.name = n;
+		newstudent.surname = sn;
+		newstudent.studentNumber = snumber;
+		newstudent.classRecord = crecord;
+		studentData.push_back(newstudent);	
+		cout << "Student " << snumber << " added to database." << endl;
+	}
+
 	void readDatabase(std::string filename){
 		ifstream in(filename);
 		string st;
@@ -71,30 +71,17 @@ namespace STSCLA001{
 			if (studentData[i].studentNumber == snumber){				
 				string grades = studentData[i].classRecord;
 				istringstream iss(grades);
+				int counter;
+				int gradeSum;
 				string temp;
-				vector<string> grades_split;
-				while (!iss.eof()){
-					iss >> temp;
-					grades_split[i] = temp;
+				while (getline(iss, temp, ' ')){
+			 		counter++;
+					gradeSum = gradeSum + stoi(temp);
 				}
-				int gradeSum = 0;
-				for (int i = 0; i < grades_split.size(); i++){
-					try{
-						int a = stoi(grades_split[i]);
-						gradeSum = gradeSum + a;
-					}
-					catch (invalid_argument const &e)
-					{
-						cout << "Bad input: std::invalid_argument thrown" << '\n';
-					}
-					catch (out_of_range const &e)
-					{
-						cout << "Integer overflow: std::out_of_range thrown" << '\n';
-					}
-				}
-
-				int gradeAve = gradeSum / grades_split.size();
+				int gradeAve = gradeSum / counter;
+				cout << "Grade average for " << snumber << " is: " << gradeAve << "%" <<endl;
 			}
 		}
 	}
+
 }
