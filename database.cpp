@@ -105,10 +105,10 @@ namespace STSCLA001{
 			//addStudent(data[0], data[1], data[2], data[3]);
 		}	
 	}
-	void saveDatabase(std::string filename){
+	void saveDatabase(string filename){
 
 	}
-	void displayData(std::string snumber){
+	void displayData(string snumber){
 		for(int i = 0; i < studentData.size(); i++){
 			if (studentData[i].studentNumber == snumber){				
 				StudentRecord match = studentData[i];
@@ -118,13 +118,13 @@ namespace STSCLA001{
 			}
 		}	
 	}
-	void gradeStudent(std::string snumber){
+	void gradeStudent(string snumber){
 		for(int i = 0; i < studentData.size(); i++){
-			if (studentData[i].studentNumber == snumber){				
+			if (studentData[i].studentNumber == snumber){
 				string grades = studentData[i].classRecord;
 				istringstream iss(grades);
-				int counter;
-				int gradeSum;
+				int counter=0;
+				int gradeSum=0;
 				string temp;
 				while (getline(iss, temp, ' ')){
 					counter++;
