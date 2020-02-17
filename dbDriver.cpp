@@ -53,7 +53,7 @@ int main(){
 		else if(select == '2'){
 			std::cout << "function saveDatabase() called" << std::endl;
 			std::cout << "Enter filename to save to:" << std::endl;
-			std::cin >> fname;
+			std::getline(std::cin, fname);
 			STSCLA001::saveDatabase(fname);
 		}
 		else if(select == '3'){

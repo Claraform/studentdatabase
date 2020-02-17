@@ -22,6 +22,30 @@ namespace STSCLA001{
 		}
 	}
 
+	bool digitsOnly(string c){
+		//return !c.empty() && all_of(c.begin(), c.end(), ::isdigit);
+		return (c.find_first_not_of("0123456789") == string::npos);
+	}
+
+	bool checkValid(StudentRecord s){
+		if (s.studentNumber == "" || s.name == "" || s.surname == ""){
+			return false;
+		}
+		string grades = s.classRecord;
+		istringstream iss(grades);
+		int gradeSum;
+		string temp;
+		while (getline(iss, temp, ' ')){
+			if(!digitsOnly(temp)){
+				return false;
+			}
+			else if (stoi(temp) > 100 || stoi(temp) < 0){
+				return false;
+			}	
+		}
+		return true;
+	}
+
 	void addStudent(std::string n, std::string sn, std::string snumber, std::string crecord){
 		for(int i = 0; i < studentData.size(); i++){
 			//check if student already exists in database
@@ -40,17 +64,35 @@ namespace STSCLA001{
 		newstudent.surname = sn;
 		newstudent.studentNumber = snumber;
 		newstudent.classRecord = crecord;
-		studentData.push_back(newstudent);	
-		cout << "Student " << snumber << " added to database." << endl;
+		if (checkValid(newstudent)){
+			studentData.push_back(newstudent);	
+			cout << "Student " << snumber << " added to database." << endl;
+		}
+		else{
+			cout << "Invalid student data - not added to database" << endl;
+		}
 	}
 
 	void readDatabase(std::string filename){
 		ifstream in(filename);
 		string st;
 		char delim =',';
-		while (getline(in, st)){
+		if (!in){
+			cout << "Failed to open file" << endl;
+			return;
+		}
+		while (in){
+			getline(in, st, '\n');
 			vector<string> data = split(st, delim);
-			addStudent(data[0], data[1], data[2], data[3]);
+			StudentRecord s;
+			s.name = data[0];
+			s.surname = data[1];
+			s.studentNumber = data[2];
+			s.classRecord = data[3];
+			if (checkValid(s)){
+				studentData.push_back(s);
+			}
+			//addStudent(data[0], data[1], data[2], data[3]);
 		}	
 	}
 	void saveDatabase(std::string filename){
@@ -75,7 +117,7 @@ namespace STSCLA001{
 				int gradeSum;
 				string temp;
 				while (getline(iss, temp, ' ')){
-			 		counter++;
+					counter++;
 					gradeSum = gradeSum + stoi(temp);
 				}
 				int gradeAve = gradeSum / counter;

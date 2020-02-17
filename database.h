@@ -14,6 +14,8 @@ namespace STSCLA001{
 	extern std::vector<StudentRecord> studentData;
 	//function definitions
 	std::vector<std::string> split(std::string s, char delim);
+	bool digitsOnly(std::string c);
+	bool checkValid(STSCLA001::StudentRecord s);
 	void addStudent(std::string n, std::string sn, std::string snumber, std::string crecord);
 	void readDatabase(std::string filename);
 	void saveDatabase(std::string filename);
