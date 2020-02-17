@@ -1,5 +1,4 @@
 //database
-//code to convert a string to an int adapted from techiedelight.com
 
 #include "database.h"
 #include <fstream>
@@ -12,7 +11,7 @@ using namespace std;
 
 namespace STSCLA001{
 	vector<StudentRecord> studentData;
-	//function definitions
+	//function to split a string by a delimiter
 	vector<string> split(string s, char delim){
 		istringstream iss(s);
 		vector<string> result;
@@ -22,12 +21,12 @@ namespace STSCLA001{
 		}
 		return result;
 	}
-
+	//checks whether class record is numerical
 	bool digitsOnly(string c){
 		//return !c.empty() && all_of(c.begin(), c.end(), ::isdigit);
 		return (c.find_first_not_of("0123456789") == string::npos);
 	}
-
+	//check whether student data is valid
 	bool checkValid(StudentRecord s){
 		if (s.studentNumber == "" || s.name == "" || s.surname == ""){
 			return false;
@@ -59,13 +58,14 @@ namespace STSCLA001{
 				return;
 			}
 		}
-		//add new student
+		//create new student
 		StudentRecord newstudent;
 		newstudent.name = n;
 		newstudent.surname = sn;
 		newstudent.studentNumber = snumber;
 		newstudent.classRecord = crecord;
 		if (checkValid(newstudent)){
+			//if student data valid, add to database
 			studentData.push_back(newstudent);	
 			cout << "Student " << snumber << " added to database." << endl;
 		}
@@ -86,6 +86,7 @@ namespace STSCLA001{
 		while (in){
 			getline(in, st, '\n');
 			if (st == ""){
+				//ignore end of file
 				return;
 			}
 			vector<string> data = split(st, delim);
@@ -94,7 +95,16 @@ namespace STSCLA001{
 			s.surname = data[1];
 			s.studentNumber = data[2];
 			s.classRecord = data[3];
-			if (checkValid(s)){
+			bool duplicate;
+			//check whether student data is a duplicate
+			for (int i = 0; i < studentData.size(); i++){
+				if (studentData[i].studentNumber == s.studentNumber){
+					duplicate = true;
+					cout << "Duplicate data for " << s.studentNumber << " found, data may be inaccurate" << endl;		
+				}
+			}
+			if (checkValid(s) && !duplicate){ 
+				//if student data valid and not a duplicate, add to database
 				studentData.push_back(s);
 			}
 			//addStudent(data[0], data[1], data[2], data[3]);
@@ -118,8 +128,10 @@ namespace STSCLA001{
 				cout << "Data for student " << match.studentNumber << ":" << endl;
 				cout << "Full Name: " << match.name << " " << match.surname << endl;
 				cout << "Grades: " << match.classRecord << endl;
+				return;
 			}
-		}	
+		}
+		cout << "No data found for student " << snumber << endl;
 	}
 	void gradeStudent(string snumber){
 		for(int i = 0; i < studentData.size(); i++){
@@ -130,13 +142,15 @@ namespace STSCLA001{
 				int gradeSum=0;
 				string temp;
 				while (getline(iss, temp, ' ')){
-					counter++;
-					gradeSum = gradeSum + stoi(temp);
+					counter++; //tracks how many grade items student has
+					gradeSum = gradeSum + stoi(temp); //sums up all grade items
 				}
 				int gradeAve = gradeSum/counter;
 				cout << "Grade average for " << snumber << " is: " << gradeAve << "%" <<endl;
+				return;
 			}
 		}
+		cout << "No data found for student " << snumber << endl;
 	}
 
 }
