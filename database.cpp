@@ -20,6 +20,7 @@ namespace STSCLA001{
 		while(getline(iss, token, delim)){
 			result.push_back(token);
 		}
+		return result;
 	}
 
 	bool digitsOnly(string c){
@@ -73,7 +74,8 @@ namespace STSCLA001{
 		}
 	}
 
-	void readDatabase(std::string filename){
+	void readDatabase(string filename){
+		studentData.clear();
 		ifstream in(filename);
 		string st;
 		char delim =',';
@@ -82,13 +84,21 @@ namespace STSCLA001{
 			return;
 		}
 		while (in){
+			cout << "test" << endl;
 			getline(in, st, '\n');
+			if (st == ""){
+				return;
+			}
 			vector<string> data = split(st, delim);
 			StudentRecord s;
+			cout << "split worked" << endl;
 			s.name = data[0];
+			cout << "name" << endl;
 			s.surname = data[1];
+			cout << "sn" << endl;
 			s.studentNumber = data[2];
 			s.classRecord = data[3];
+			cout << "cr" << endl;
 			if (checkValid(s)){
 				studentData.push_back(s);
 			}
@@ -120,7 +130,7 @@ namespace STSCLA001{
 					counter++;
 					gradeSum = gradeSum + stoi(temp);
 				}
-				int gradeAve = gradeSum / counter;
+				int gradeAve = gradeSum/counter;
 				cout << "Grade average for " << snumber << " is: " << gradeAve << "%" <<endl;
 			}
 		}

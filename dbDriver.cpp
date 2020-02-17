@@ -48,6 +48,7 @@ int main(){
 			std::cout << "function readDatabase() called" << std::endl;
 			std::cout << "Enter filename to read from:" << std::endl;
 			std::cin >> fname;
+			std::cout << "test1" << std::endl;
 			STSCLA001::readDatabase(fname);
 		}
 		else if(select == '2'){
