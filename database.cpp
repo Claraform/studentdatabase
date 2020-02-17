@@ -1,4 +1,7 @@
-//database
+//Database source code
+//Created by Clara Esther Stassen
+//STSCLA001
+//For CSC3022F Assignment 1
 
 #include "database.h"
 #include <fstream>
@@ -100,7 +103,10 @@ namespace STSCLA001{
 			for (int i = 0; i < studentData.size(); i++){
 				if (studentData[i].studentNumber == s.studentNumber){
 					duplicate = true;
-					cout << "Duplicate data for " << s.studentNumber << " found, data may be inaccurate" << endl;		
+					cout << "Duplicate data for " << s.studentNumber << " found, updating information" << endl;
+					studentData[i].classRecord = s.classRecord;
+					studentData[i].name = s.name;
+					studentData[i].surname = s.surname;		
 				}
 			}
 			if (checkValid(s) && !duplicate){ 

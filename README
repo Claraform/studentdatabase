@@ -1,0 +1,24 @@
+STUDENT DATABASE APP
+
+Created by Clara Esther Stassen (STSCLA001) for CSC3022F
+--------------------------------------------------------------
+Files
+--------------------------------------------------------------
+dbDriver.cpp:
+	This is the main driver file, responsible for receiving
+	user input and displaying the menu.
+database.h:
+	Header file containing function definitions.
+database.cpp:
+	Source code for the model of the database, responsible
+	for altering the database and displaying data.
+database.txt:
+	An example of an input database file for the program.
+dup_data.txt:
+	Another example database file, showing the effects of
+	attempting to enter duplicate data.
+Makefile:
+	Makefile for the project. Commands include:
+	make - compiles entire project
+	make clean - removes compiled objects
+	make run - runs the program 

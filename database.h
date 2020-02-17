@@ -1,3 +1,8 @@
+//Database header file
+//Created by Clara Esther Stassen
+//STSCLA001
+//For CSC3022F Assignment 1
+
 #ifndef DATABASE_H
 #define DATABASE_H
 #include <string>

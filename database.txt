@@ -1,0 +1,5 @@
+cla,ra,c,100 50
+fr,ed,f,10 20 30
+bil,ly,b,37
+im,tired,i,10 20 30 40 50
+cplusplus,isquite annoying,tr39,56 72 45 75 93

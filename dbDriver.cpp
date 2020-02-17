@@ -1,4 +1,8 @@
-//main program
+//Main program for database
+//Created by Clara Esther Stassen
+//STSCLA001
+//For CSC3022F Assignment 1
+
 #include <iostream>
 #include <cstdlib>
 #include "database.h"
