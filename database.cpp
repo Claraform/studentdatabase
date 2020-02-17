@@ -84,30 +84,33 @@ namespace STSCLA001{
 			return;
 		}
 		while (in){
-			cout << "test" << endl;
 			getline(in, st, '\n');
 			if (st == ""){
 				return;
 			}
 			vector<string> data = split(st, delim);
 			StudentRecord s;
-			cout << "split worked" << endl;
 			s.name = data[0];
-			cout << "name" << endl;
 			s.surname = data[1];
-			cout << "sn" << endl;
 			s.studentNumber = data[2];
 			s.classRecord = data[3];
-			cout << "cr" << endl;
 			if (checkValid(s)){
 				studentData.push_back(s);
 			}
 			//addStudent(data[0], data[1], data[2], data[3]);
-		}	
+		}
+		in.close();	
 	}
 	void saveDatabase(string filename){
-
+		ofstream ofs;
+		ofs.open(filename);
+		for (int i = 0; i < studentData.size(); i++){
+			StudentRecord s = studentData[i];
+			ofs << s.name << "," << s.surname << "," << s.studentNumber << "," << s.classRecord << endl;
+		}
+		ofs.close();
 	}
+
 	void displayData(string snumber){
 		for(int i = 0; i < studentData.size(); i++){
 			if (studentData[i].studentNumber == snumber){				

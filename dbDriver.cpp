@@ -48,13 +48,12 @@ int main(){
 			std::cout << "function readDatabase() called" << std::endl;
 			std::cout << "Enter filename to read from:" << std::endl;
 			std::cin >> fname;
-			std::cout << "test1" << std::endl;
 			STSCLA001::readDatabase(fname);
 		}
 		else if(select == '2'){
 			std::cout << "function saveDatabase() called" << std::endl;
 			std::cout << "Enter filename to save to:" << std::endl;
-			std::getline(std::cin, fname);
+			std::cin >> fname;
 			STSCLA001::saveDatabase(fname);
 		}
 		else if(select == '3'){
